@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "pythonの依存関係管理ツールpoetryの基本的な使い方と注意点"
 emoji: "💭"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: []
@@ -7,7 +7,7 @@ published: false
 ---
 
 # はじめに
-2020/06時点でのpoetryのごく基本的な使い方を記載します。poetryと他依存関係ツールの違いや、より詳細な使い方は他の方が書いた記事や公式ドキュメントがあるのでそちらを参照ください。
+2020/10時点でのpoetryのごく基本的な使い方を記載します。poetryと他依存関係ツールの違いや、より詳細な使い方は他の方が書いた記事や公式ドキュメントがあるのでそちらを参照ください。
 
 #### 動作確認環境
 OS:macOS Catalina v10.15.4
@@ -22,7 +22,6 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poet
 以下のコマンドを打つと、poetryが作成する仮想環境(.venvフォルダ)がpoetryを使ってパッケージ管理を行うプロジェクトの直下に作成されるようになります。
 
 ```shell
-
 poetry config virtualenvs.in-project true
 ```
 これが何故必要かというと、vscodeを使用する際、この設定をしていない場合はいちいち仮想環境のpathをvscodeのsettings.jsonに書き加えるなど仮想環境をvscodeに認識させるための手順が必要になってしまいますが、最初にこの設定をしておけばその手間を省くことができます。
@@ -32,7 +31,6 @@ poetry config virtualenvs.in-project true
 以下のコマンドを打つとパッケージ一覧を管理する`pyproject.toml` が直下に作成されます。
 
 ```shell
-
 poetry init
 ```
 対話式でいくつかプロジェクトの名称やauthor等について質問されますので、適宜答えてください。とりあえずエンター連打でもまぁ良いです。
@@ -61,7 +59,6 @@ poetry remove <パッケージ名>
 ### 仮想環境を使ってコマンドを実行
 
 ```shell
-
 poetry run <コマンド>
 # 例えば、poetryを使って入れたパッケージを有効化した状態で、poetryで入れたjupyterlabを立ち上げたい時
 poetry run jupyter lab
@@ -88,7 +85,6 @@ poetry install
 ※検索するとたまに出てくる、`poetry self:update`はv1.0以前のpoetryのコマンドのようなので、現在は以下コマンドを使用してください。
 
 ```shell
-
 poetry self update
 ```
 
@@ -100,11 +96,9 @@ poetry self update
 ```pyproject.toml
 [tool.poetry]
 name = "kedro"
-
 ```
 
 ```shell
-
 ❯ poetry add kedro
 Using version ^0.16.1 for kedro
 
@@ -112,7 +106,6 @@ Updating dependencies
 Resolving dependencies... (0.0s)
 
 [AssertionError]
-
 ```
 この場合、`name = "kedro_practice"`など、別のものに変えてあげれば正常にインストールできるようになります。
 参考issue:https://github.com/python-poetry/poetry/issues/1295
@@ -122,7 +115,6 @@ Resolving dependencies... (0.0s)
 `poetry init`を行う際に特別設定をしなければ、poetryが想定するpythonのバージョンについて`pyproject.toml`に以下のように記載されます。
 
 ```toml
-
 [tool.poetry.dependencies]
 python = "^3.8"
 ```
@@ -133,7 +125,6 @@ python = "^3.8"
 `pyproject.toml`の`[tool.poetry.dependencies]`欄に`python = "^3.8"`と記載した状態でこういったパッケージを`poetry add`しようとすると、以下のエラーが発生します。
 
 ```shell-session
-
 [SolverProblemError]
 The current project's Python requirement (^3.8) is not compatible with some of the required packages Python requirement:
   - kedro requires Python >=3.6, <3.9
@@ -156,6 +147,20 @@ python = "=3.8"
 より詳細な情報が欲しい方は、poetryのgithubのissueを追ってみてください。
 https://github.com/python-poetry/poetry/issues/1413
 https://github.com/python-poetry/poetry/issues/2444
+
+### パッケージのupdate
+上にパッケージのupdateは`poetry update <パッケージ名>`でできると書きましたが、
+**このコマンドでupdateできるのは`pyproject.toml`に記載されているバージョン指定の範囲内まで**となります。
+`poetry add numpy`でパッケージを導入した場合、`pyproject.toml`には`numpy = "^1.18.2"`と記載され、「**1.18.2<=numpyのバージョン<2.0**」が指定されます。(詳細な情報は[公式ドキュメント](https://python-poetry.org/docs/versions/)を見てください。)
+
+このため、メジャーバージョンのアップデートを行いたい場合、
+- `pyproject.toml`を直接編集してから`poetry update <パッケージ名>`をする
+か、面倒な場合は
+- `poetry add <パッケージ名>@latest`
+を行う必要があります。
+
+
+
 
 
 # さいごに
