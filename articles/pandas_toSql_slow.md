@@ -11,7 +11,6 @@ published: false
 'multi'を指定しなかった際に30分近くかかっていた処理が10秒程度で終わるようになった。
 ```python
 df.to_sql(...,method='multi')
-
 ```
 
 ## なぜこうなるのか
