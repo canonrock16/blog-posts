@@ -3,7 +3,7 @@ title: "機械学習パイプライン構築ツールkedroの基本的な使い�
 emoji: "👻"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["python","machine learning","kedro","pipeline"]
-published: true
+published: false
 ---
 
 # はじめに
@@ -314,7 +314,7 @@ cars.csv:
 # data/01_raw/company/cars.csv/<version>/cars.csvのようにバージョン別に管理されて保存される
 ```
 
-````shell
+```shell
 # 実行
 kedro run --load-version="cars.csv:YYYY-MM-DDThh.mm.ss.sssZ"
 ```
