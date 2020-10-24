@@ -3,7 +3,7 @@ title: "機械学習パイプライン構築ツールkedroの基本的な使い�
 emoji: "👻"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["python","machine learning","kedro","pipeline"]
-published: false
+published: true
 ---
 
 # はじめに
