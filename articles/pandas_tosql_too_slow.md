@@ -1,9 +1,9 @@
 ---
 title: "pandasのto_sqlメソッドでのinsertが遅い時の対処法"
-emoji: "😸"
+emoji: "🐼"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["pandas"]
-published: false
+published: true
 ---
 
 ## 先に結論
