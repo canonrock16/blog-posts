@@ -1,8 +1,8 @@
 ---
 title: "pythonの依存関係管理ツールpoetryの基本的な使い方と注意点"
-emoji: "💭"
+emoji: "🐍"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: []
+topics: ["python","poetry","pip","パッケージ管理"]
 published: false
 ---
 
