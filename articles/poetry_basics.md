@@ -161,6 +161,67 @@ https://github.com/python-poetry/poetry/issues/2444
 
 
 
+### バージョン競合メッセージが出た時
+
+パッケージを入れようとしたところ、以下のようなパッケージ間での依存パッケージの競合エラーが出て入れられない場合がある。
+
+以下の例では先にboto3が入っている環境に対しs3fsというパッケージを入れようとしている。
+
+先に入っているboto3が(>=1.19.43,<1.20.0)のbotocoreを使っているのに対し、現在入れようとしているs3fsが(>=1.15.32,<1.15.33 || >=1.17.44,<1.17.45)のbotocoreを必要としており、boto3とs3fsを両立させられないのでパッケージを導入できないと怒られている。
+
+```shell
+> poetry add s3fs@latest
+
+[SolverProblemError]
+...省略
+Because no versions of s3fs match >0.5.2,<0.6.0
+ and s3fs (0.5.2) depends on aiobotocore (>=1.0.1), s3fs (>=0.5.2,<0.6.0) requires aiobotocore (>=1.0.1).
+Thus, s3fs (>=0.5.2,<0.6.0) requires botocore (>=1.15.32,<1.15.33 || >=1.17.44,<1.17.45).
+And because boto3 (1.16.43) depends on botocore (>=1.19.43,<1.20.0)
+ and no versions of boto3 match >1.16.43,<2.0.0, s3fs (>=0.5.2,<0.6.0) is incompatible with boto3 (>=1.16.43,<2.0.0).
+So, because g-e depends on both boto3 (^1.16.43) and s3fs (^0.5.2), version solving failed.
+```
+
+
+
+今回の場合、s3fsの最新バージョンでも(>=1.15.32,<1.15.33 || >=1.17.44,<1.17.45)と比較的古いバージョンのbotocoreを使っているため、boto3とs3fsを両立させるにはboto3のバージョンを(>=1.15.32,<1.15.33 || >=1.17.44,<1.17.45)に合致するようなbotocoreを使っているバージョンまで下げなければならない。
+
+**(>=1.15.32,<1.15.33 || >=1.17.44,<1.17.45)に合致するバージョンのbotocoreを使っているboto3のバージョンを調査するのは骨が折れる仕事のため、poetryにやらせたい。**
+
+このような場合、まずboto3をアンインストールし、先にs3fsを入れてboto3を入れ直すようにすれば、poetryが自動でs3fsと両立できるboto3のバージョンを調べてインストールしてくれる。
+
+気をつける必要があるのはboto3を再インストールする時のバージョン指定方法で、`poetry add boto3`と打つとboto3の最新バージョン(1.16.43)をインストールするように命令していることになり、poetryはboto3の最新バージョンについてしかインストールを試みてくれず、**インストールに失敗する。**
+
+
+
+このため、`poetry add "boto3<1.16.43"`のように指定することで、boto3の最新バージョン(1.16.43)以下で依存関係に問題が無いバージョンを探させることができる。
+
+```shell
+# 現在入っているboto3をアンインストール
+poetry remove boto3
+# s3fsの最新バージョンをインストール
+poetry add s3fs@latest
+# s3fsと競合しないboto3のバージョンをインストール
+poetry add "boto3<1.16.43"
+```
+
+結果、この場合はboto3のv1.14.44がインストールされた。
+
+```shell
+❯ poetry add "boto3<1.16.43"
+
+Updating dependencies
+Resolving dependencies... (12.9s)
+
+Writing lock file
+
+Package operations: 2 installs, 0 updates, 0 removals
+  - Installing s3transfer (0.3.3)
+  - Installing boto3 (1.14.44)
+```
+
+
+
 
 
 # さいごに
