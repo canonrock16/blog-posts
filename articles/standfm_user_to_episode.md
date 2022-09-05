@@ -1,5 +1,5 @@
 ---
-title: "放送レコメンドを機能をTensorFlow Recommendersで作り、ABテストしてみた"
+title: "放送レコメンド機能をTensorFlow Recommendersで作り、ABテストしてみた"
 emoji: "👻"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["python","ML","TensorFlowRecommenders","VertexPipeline","FirebaseABTesting"]
