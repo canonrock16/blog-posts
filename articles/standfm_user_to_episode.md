@@ -3,7 +3,7 @@ title: "放送レコメンド機能をTensorFlow Recommendersで作り、ABテ�
 emoji: "👻"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["python","ML","TensorFlowRecommenders","VertexPipeline","FirebaseABTesting"]
-published: True
+published: False
 ---
 
 # はじめに
@@ -19,7 +19,7 @@ stand.fmでは各画面に表示するコンテンツのパーソナライズを
 
 stand.fmではアプリを開いた時に最初に出る画面をホーム画面と呼んでいます。ホーム画面では画像のようにテーマ別にセクションが並び、セクション内に放送がいくつか表示されます。
 
-![image](/images/standfm_user_to_episode/IMG_7644.png =300x)
+![image](/images/standfm_user_to_episode/home.png =300x)
 
 ホーム画面に表示されるセクションや各セクションに表示される内容はパーソナライズされておらず、全ユーザーに対して同一の内容が表示される状態でした。しかし、やはりユーザーによって嗜好が異なるので、各ユーザーが好きそうな放送をホーム画面に出したいニーズがあります。そこで、パーソナライズ第一弾として、各ユーザーの過去の視聴履歴から各ユーザーが好みそうな放送を抽出し、まとめて表示する「あなたへのおすすめ放送」セクションを追加することにしました。
 
