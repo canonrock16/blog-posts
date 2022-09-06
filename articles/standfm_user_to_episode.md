@@ -3,7 +3,7 @@ title: "放送レコメンド機能をTensorFlow Recommendersで作り、ABテ�
 emoji: "👻"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["python","ML","TensorFlowRecommenders","VertexPipeline","FirebaseABTesting"]
-published: False
+published: True
 ---
 
 # はじめに
