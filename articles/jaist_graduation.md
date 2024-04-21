@@ -3,7 +3,7 @@ title: "JAISTの社会人コースで情報科学の修士号を3年半かけて
 emoji: "🎓"
 type: "idea" # tech: 技術記事 / idea: アイデア
 topics: ["修士", "社会人大学院"]
-published: false
+published: true
 ---
 
 # はじめに
@@ -37,7 +37,7 @@ JAIST で情報科学の修士号を取ろうと思った主な理由は以下�
 
 関東圏在住で社会人大学院で情報系の学位を取りたい場合、どのような選択肢があり得るのか？を調査した際の記事があるので[リンク](https://zenn.dev/canonrock/articles/124adce216bb07a5b270)しておきます。調査した結果、自分の要件(時間が取れるのは平日夜もしくは土日、研究したい)だと JAIST 一択のように感じたので、JAIST への進学を決めました。
 
-入試準備については別で[記事]()を書いています。
+入試準備については別で[記事](https://zenn.dev/canonrock/articles/jaist_examination)を書いています。
 
 # 入学後の過ごし方
 

@@ -3,7 +3,7 @@ title: "JAISTの東京社会人コースに入学します"
 emoji: "🎓"
 type: "idea" # tech: 技術記事 / idea: アイデア
 topics: ["修士", "社会人大学院"]
-published: false
+published: true
 ---
 
 # はじめに
